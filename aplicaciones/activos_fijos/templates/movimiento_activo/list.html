@@ -1,0 +1,59 @@
+{% extends 'consulta.html' %}
+{% load static %}
+
+{% block js %}
+{#    <script src="{% static 'cliente/js/list.js' %}"></script>#}
+{% endblock %}
+
+{% block search %}
+    <form action="{}" method="GET">
+      <div class="input-group mb-3">
+        <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Buscar... por nombre" id="idInputSearch" aria-describedby="basic-addon2"/>
+        <button type="submit" class="btn btn-primary mr-1" id="idSearchSp">Buscar</button>
+      </div>
+    </form>
+{% endblock %}
+
+
+{% block columns %}
+    <tr class="text-center">
+        <th scope="col" style="width: 5%;">Id</th>
+        <th scope="col" style="width: 20%;">Area de Origen</th>
+        <th scope="col" style="width: 20%;">Empleado de Origen</th>
+        <th scope="col" style="width: 20%;">Area de Destino</th>
+        <th scope="col" style="width: 20%;">Empleado de Destino</th>
+        <th scope="col" style="width: 20%;">Fecha</th>
+        <th scope="col" style="width: 20%;">Motivo</th>
+        <th scope="col" style="width: 20%;">Categoria</th>
+        <th scope="col" style="width: 20%;">Activo</th>
+        <th scope="col" style="width: 20%;">Cantidad de Movimiento</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+    {% for object in categorias %}
+        <tr class="align-middle" >
+            <td>{{ object.id }}</td>
+            <td>{{ object.area_origen }}</td>
+            <td>{{ object.empleado_origen }}</td>
+            <td>{{ object.area_destino}}</td>
+            <td>{{ object.empleado_origen }}</td>
+            <td>{{ object.fecha }}</td>
+            <td>{{ object.motivo }}</td>
+            <td>{{ object.categoria }}</td>
+            <td>{{ object.activo }}</td>
+            <td>{{ object.cantidad_movimiento }}</td>
+            <td class="text-center">
+                <img width="70" src="{{ object.get_image }}" alt="Sin Foto">
+            </td>
+             <td class="acciones">
+                <a href="{% url 'ventas:actualizarcliente' object.id %}">✏️</a>
+                <a href="{% url 'ventas:deletecliente' object.id %}">❌</a>
+            </td>
+
+        </tr>
+    {% endfor %}
+
+{% endblock %}
